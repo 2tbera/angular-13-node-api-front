@@ -1,0 +1,41 @@
+$font_path: '/assets/fonts/';
+$is-rounded: false;
+$social-red: #ef5350;
+$social-grey: hsl(213deg 15% 53%);
+
+$light-gray: #f8fafc;
+
+$border-color: #eaebef;
+
+
+/* Font Family */
+$font-family-opensans-regular: 'opensans-regular';
+$font-family-opensans-semibold: 'opensans-semibold';
+$font-family-opensans-bold: 'opensans-bold';
+
+/* header */
+
+$font-size-function: (
+        12: 12px,
+        14: 14px,
+        16: 16px,
+        18: 18px,
+        22: 22px
+);
+
+// Font-size Responsive
+
+$font-size-responsive-function: (
+);
+
+// Background Color
+
+$background-color: (
+);
+
+// Font Color
+
+$font-color: (
+        social-grey: $social-grey
+);
+

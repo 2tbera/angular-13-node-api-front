@@ -1,0 +1,34 @@
+$grid-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1320px,
+  xxl: 1520px,
+);
+
+$container-max-widths: (
+  lg: 980px,
+  xl: 1300px,
+  xxl: 1500px,
+);
+
+$font-size-base: 1.25rem;
+$font-family-base: $font-family-opensans-regular;
+
+$body-bg: $light-gray;
+$card-border-color: $border-color;
+
+$border-color: $border-color;
+
+$green: hsl(152deg 100% 44%);
+$blue: hsl(213deg 97% 64%);
+$red: $social-red ;
+
+$theme-colors: (
+  'default': #8f95a6,
+  'primary-transparent': rgba($blue, 0.1),
+  'danger-transparent': rgba($social-red, 0.1),
+  'success-transparent': rgba($green, 0.3),
+);
+

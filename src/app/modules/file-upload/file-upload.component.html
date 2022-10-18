@@ -1,0 +1,3 @@
+<div class="btn btn-outline-primary btn-lg" [class.disabled]="!isActive" (click)="fileInput.click()">{{text}}</div>
+<input #fileInput [disabled]="!isActive" type="file" hidden [accept]="accept" (change)="fileChange($event)">
+

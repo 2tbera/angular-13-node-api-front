@@ -1,0 +1,38 @@
+*{
+  text-rendering: optimizeLegibility;
+}
+
+@import "styles/variables";
+@import "styles/bootstrap-override";
+
+
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins";
+@import "~bootstrap/scss/root";
+@import "~bootstrap/scss/reboot";
+@import "~bootstrap/scss/type";
+
+@import "~bootstrap/scss/card";
+@import "~bootstrap/scss/grid";
+@import "~bootstrap/scss/buttons";
+@import "~bootstrap/scss/list-group";
+@import "~bootstrap/scss/utilities";
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+
+@import "styles/index";
+
+
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+  opacity: 1;
+}
+
+.mat-form-field-appearance-legacy .mat-form-field-underline {
+  background: $border-color
+}
+
+.mat-menu-content{
+  padding:0 !important;
+}

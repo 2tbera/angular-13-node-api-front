@@ -1,0 +1,42 @@
+@function image-url($image-name, $image-type: svg) {
+  @return url('#{$image-path}/#{$image-name}.#{$image-type}');
+}
+
+@function get-vw($target,$point) {
+  $vw-context: ($point*.01) * 1px;
+  @return ($target/$vw-context) * 1vw;
+}
+
+// Font Size Generation
+
+@each $name, $value in $font-size-function {
+  .font-size-#{$name} {
+    font-size: $value;
+  }
+}
+
+@each $size, $break-point in $grid-breakpoints {
+  @media screen and (min-width: #{$break-point}) {
+    @each $name, $value in $font-size-responsive-function {
+      .font-size-#{$size}-#{$name} {
+        font-size: $value;
+      }
+    }
+  }
+}
+
+// Background Generator
+
+@each $name, $value in $background-color {
+  .bg-#{$name} {
+    background-color: $value;
+  }
+}
+
+// Font Generator
+
+@each $name, $value in $font-color {
+  .font-color-#{$name} {
+    color: $value;
+  }
+}
