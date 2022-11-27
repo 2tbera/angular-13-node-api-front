@@ -12,5 +12,9 @@ export class AlbumHttpService {
     return this.http.post('http://localhost:8081/album/create', data) as Observable<album>
   }
 
+  public getAlbum(id: string): Observable<album[]> {
+    return this.http.post('http://localhost:8081/album/getUserAlbums', {id}) as Observable<album[]>
+  }
+
 }
 

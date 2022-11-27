@@ -1,5 +1,5 @@
 export interface Me {
-  id?: number;
+  id?: string;
   firstname?: string;
   lastname?: string;
   email?: string;

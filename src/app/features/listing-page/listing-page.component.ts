@@ -10,6 +10,7 @@ import { Observable } from "rxjs";
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from "@angular/material/dialog";
 import { FormBuilder, Validators } from "@angular/forms";
 import { createAlbum, getAlbum } from "../../store/album/actions/album.action";
+import { selectAlbums } from "../../store/album/reducers/album.reducer";
 
 @Component({
   templateUrl: './listing-page.component.html',
@@ -18,7 +19,9 @@ import { createAlbum, getAlbum } from "../../store/album/actions/album.action";
 export class ListingPageComponent implements OnInit {
 
   public user$: Observable<Me> = this.store.pipe(select(selectMeInfo()));
-  public fileList$ = this.store.pipe(select(selectList()));
+  public albums$ = this.store.pipe(select(selectAlbums()));
+
+
 
   constructor(private router: Router,
               private cookieService: CookieService,
@@ -28,7 +31,6 @@ export class ListingPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.store.dispatch(getMyData())
-    this.store.dispatch(getAlbum())
   }
 
   public openAddAlbumPopup(): void {

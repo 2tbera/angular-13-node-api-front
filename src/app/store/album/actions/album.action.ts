@@ -9,7 +9,6 @@ export enum AlbumActionsTypes {
 }
 
 export const createAlbum = createAction(AlbumActionsTypes.createAlbum, props<{name: string}>());
-export const createAlbumSuccess = createAction(AlbumActionsTypes.createAlbumSuccess, props<album>());
-export const getAlbum = createAction(AlbumActionsTypes.getAlbum, props);
-export const getAlbumSuccess = createAction(AlbumActionsTypes.getAlbumSuccess, props<album>());
-
+export const createAlbumSuccess = createAction(AlbumActionsTypes.createAlbumSuccess, props<{album: album}>());
+export const getAlbum = createAction(AlbumActionsTypes.getAlbum, props<{id: string}>());
+export const getAlbumSuccess = createAction(AlbumActionsTypes.getAlbumSuccess, props<{ albums: album[] }>());
