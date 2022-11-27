@@ -23,6 +23,7 @@
     "@material/icon-button": "^14.0.0",
     "@ngrx/effects": "^13.2.0",
     "@ngrx/store": "^13.2.0",
+    "@ngrx/entity": "^13.2.0",
     "@ngrx/store-devtools": "^13.2.0",
     "bootstrap": "^4.4.1",
     "ngx-cookie-service": "^13.2.1",

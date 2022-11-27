@@ -4,16 +4,13 @@ import { Store } from '@ngrx/store';
 import { switchMap, map, tap, } from 'rxjs/operators';
 import { Me } from 'src/app/core/models/me.model';
 import {
-  getAuthorisedFailed,
   getAuthorisedSuccess,
   getAuthorised,
   getRegistered,
   getRegisteredSuccess
 } from '../actions/auth.action';
-import { getMyData } from "../../my-info/actions/my-info.action";
 import { AuthHttpService } from "../services/authHttp";
 import { CookieService } from "ngx-cookie-service";
-import { HttpClient } from "@angular/common/http";
 import { Router } from "@angular/router";
 
 @Injectable()
@@ -27,8 +24,7 @@ export class AuthEffect {
         this.cookieService.set('refreshToken', content.refreshToken);
         this.router.navigate(['./'])
       }),
-      tap(() => this.store.dispatch(getMyData())),
-      map((content) =>  getAuthorisedSuccess()),
+      map(() =>  getAuthorisedSuccess()),
     ));
 
 
@@ -40,8 +36,7 @@ export class AuthEffect {
         this.cookieService.set('refreshToken', content.refreshToken);
         this.router.navigate(['./'])
       }),
-      tap(( content:  any) => this.store.dispatch(getMyData())),
-      map((content: Me) => getRegisteredSuccess()),
+      map(() => getRegisteredSuccess()),
     ));
 
   constructor(private actions$: Actions,

@@ -8,7 +8,6 @@ import { HttpClient } from "@angular/common/http";
 @Injectable()
 export class MyInfoHttpService {
 
-
   constructor(private cookieService: CookieService, private http: HttpClient, private router: Router) { }
 
   public getMyData(): Observable<Me> {

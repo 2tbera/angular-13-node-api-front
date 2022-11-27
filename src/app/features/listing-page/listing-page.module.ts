@@ -3,11 +3,12 @@ import { CommonModule } from "@angular/common";
 import { MatIconModule } from "@angular/material/icon";
 import { MatInputModule } from "@angular/material/input";
 
-import { ListingPageComponent } from './listing-page.component';
+import { DialogAddAlbumDialog, ListingPageComponent } from './listing-page.component';
 import { CalendarRoutingModule } from "./listing-page-routing.module";
 import { CardModule } from "../../modules/card/card.module";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { FileUploadModule } from "../../modules/file-upload/file-upload.module";
+import { MatDialogModule } from "@angular/material/dialog";
+import { MatButtonModule } from "@angular/material/button";
 
 const IMPORTS = [
   CommonModule,
@@ -15,14 +16,17 @@ const IMPORTS = [
   CalendarRoutingModule,
   MatInputModule,
   MatIconModule,
+  MatDialogModule,
+  MatButtonModule,
 
   ReactiveFormsModule,
   FormsModule,
-  FileUploadModule
+
 ];
 
 const DECLARATIONS = [
   ListingPageComponent,
+  DialogAddAlbumDialog,
 ];
 
 const SERVICES: any[] = [];

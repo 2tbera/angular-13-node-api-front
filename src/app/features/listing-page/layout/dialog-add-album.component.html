@@ -1,0 +1,14 @@
+<h1 mat-dialog-title>Add album</h1>
+<div mat-dialog-content>
+    <form [formGroup]="form" class="example-container">
+        <mat-form-field appearance="fill">
+            <mat-label>Enter album name</mat-label>
+            <input matInput placeholder="name" [formControlName]="'name'" required>
+            <mat-error *ngIf="form.invalid">{{"name is required"}}</mat-error>
+        </mat-form-field>
+    </form>
+</div>
+<div >
+    <button mat-button (click)="onNoClick()"  color="warn">Close</button>
+    <button mat-button color="primary" [mat-dialog-close]="form.value">Add</button>
+</div>

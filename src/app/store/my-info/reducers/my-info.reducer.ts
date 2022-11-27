@@ -19,22 +19,11 @@ export function reducerMe(state: any, action: Action) {
 
 const meState = createFeatureSelector<Me>('me');
 
-export const selectMeInfo = (fields?: string[]) => createSelector(
+export const selectMeInfo = () => createSelector(
 	meState,
 	(state) => {
-		// if (!state || !state.id) {
-		// 	return;
-		// }
-		let data = {}
-		// if(fields && fields.length) {
-		// 	fields.forEach(item => {
-		// 		data[item] = state[item];
-		// 	})
-		// } else {
-			data = state
-		// }
-	
-		return data;
+		console.log(state, 111)
+		return state;
 	}
 );
 

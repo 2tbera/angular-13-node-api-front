@@ -1,12 +1,15 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { Item } from '../../core/models/item.model';
+import { ChangeDetectionStrategy, Component, Inject, OnInit } from '@angular/core';
 import { CookieService } from "ngx-cookie-service";
 import { Router } from "@angular/router";
-import { DomSanitizer, SafeResourceUrl } from "@angular/platform-browser";
 import { select, Store } from "@ngrx/store";
-import { addFile } from "../../store/list/actions/list.action";
 import { selectList } from "../../store/list/reducers/list.reducer";
 import { getMyData } from 'src/app/store/my-info/actions/my-info.action';
+import { selectMeInfo } from "../../store/my-info/reducers/my-info.reducer";
+import { Me } from "../../core/models/me.model";
+import { Observable } from "rxjs";
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from "@angular/material/dialog";
+import { FormBuilder, Validators } from "@angular/forms";
+import { createAlbum, getAlbum } from "../../store/album/actions/album.action";
 
 @Component({
   templateUrl: './listing-page.component.html',
@@ -14,47 +17,56 @@ import { getMyData } from 'src/app/store/my-info/actions/my-info.action';
 })
 export class ListingPageComponent implements OnInit {
 
-  public fileList: Item[] = [];
-
+  public user$: Observable<Me> = this.store.pipe(select(selectMeInfo()));
   public fileList$ = this.store.pipe(select(selectList()));
 
-  constructor(private router: Router, private sanitizer: DomSanitizer,
+  constructor(private router: Router,
               private cookieService: CookieService,
-              private store: Store,
-              private changeDetection: ChangeDetectorRef) {
+              public dialog: MatDialog,
+              private store: Store) {
   }
 
   ngOnInit(): void {
-  }
-
-  public fileChange(data: any): void {
-    const img: SafeResourceUrl = this.getImageSanitizedUrl(URL.createObjectURL(data));
-    const item: Item = {
-      title: data.name,
-      logo: img
-    }
-    this.fileList.push(
-      item
-    );
-    this.store.dispatch(addFile({addNewFile: item}))
-    this.changeDetection.detectChanges();
-  }
-
-  private getImageSanitizedUrl(fileUrl: string): SafeResourceUrl {
-    return this.sanitizer.bypassSecurityTrustResourceUrl(fileUrl);
-  }
-
-  public testToken() {
     this.store.dispatch(getMyData())
+    this.store.dispatch(getAlbum())
   }
 
+  public openAddAlbumPopup(): void {
+    const dialogRef = this.dialog.open(DialogAddAlbumDialog, {
+      width: '250px',
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(!result.name) {return}
+      this.store.dispatch(createAlbum(result))
+    });
+  }
 
   public onLogout(): void {
-
     this.cookieService.delete('accessToken')
     this.cookieService.delete('refreshToken')
-
     this.router.navigate(['auth'])
   }
+}
 
+// REGION: Dialog component for Adding Albums
+
+@Component({
+  templateUrl: 'layout/dialog-add-album.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+})
+export class DialogAddAlbumDialog {
+  public form = this.fb.group({
+    name: [null, Validators.required],
+  });
+
+  constructor(
+    private fb: FormBuilder,
+    public dialogRef: MatDialogRef<DialogAddAlbumDialog>,
+    @Inject(MAT_DIALOG_DATA) public data: void,
+  ) {}
+
+  public onNoClick(): void {
+    this.dialogRef.close();
+  }
 }

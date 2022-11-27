@@ -16,13 +16,15 @@ import { MyInfoHttpService } from "../../store/my-info/services/my-infoHttp";
 import { MyDataEffect } from "../../store/my-info/effects/my-info.effect";
 import { HttpClient, HttpClientModule } from "@angular/common/http";
 import { authInterceptorProvider } from "../../core/interceptors/auth/auth-interceptor.provider";
+import { AlbumEffect } from "../../store/album/effects/album.effect";
+import { AlbumHttpService } from "../../store/album/services/albumHttp";
 
 const IMPORTS = [
     BrowserModule,
     BrowserAnimationsModule,
     RoutingModule,
     StoreModule.forRoot(REDUCERS),
-    EffectsModule.forRoot([AuthEffect, MyDataEffect]),
+    EffectsModule.forRoot([AuthEffect, MyDataEffect, AlbumEffect]),
     StoreDevtoolsModule.instrument({}),
     HttpClientModule,
 ];
@@ -35,6 +37,7 @@ const SERVICES: any[] = [
     AuthGuard,
     MyInfoHttpService,
     AuthHttpService,
+    AlbumHttpService,
     authInterceptorProvider
 
 ];
