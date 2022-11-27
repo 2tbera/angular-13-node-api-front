@@ -11,7 +11,7 @@ import { getAuthorised } from "../../../../store/auth/actions/auth.action";
 export class AuthFormComponent {
 
   public form: FormGroup = this.fb.group({
-    emailAddress: [, [Validators.email ,Validators.required]],
+    email: [, [Validators.email ,Validators.required]],
     password: [, Validators.required],
   });
 

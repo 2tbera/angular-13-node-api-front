@@ -11,6 +11,8 @@
                     <button class="btn btn-primary font-size-14 p-2" (click)="onLogout()"> logOut</button>
                 </div>
 
+                <button class="btn btn-primary m-auto" (click)="testToken()"> test</button>
+
                 <app-card *ngFor="let item of fileList$ | async" [data]="item"
                           class="col-xl-4 col-lg-6 col-12 mb-3"></app-card>
             </div>

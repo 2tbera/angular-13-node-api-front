@@ -6,6 +6,6 @@ export enum MyInfoActionsTypes {
   getMyDataSuccess = '[MY_INFO] get My Info Success',
 }
 
-export const getMyData = createAction(MyInfoActionsTypes.getMyData, props<{id: number | boolean}>());
+export const getMyData = createAction(MyInfoActionsTypes.getMyData, props);
 export const getMyDataSuccess = createAction(MyInfoActionsTypes.getMyDataSuccess, props<{me: Me}>());
 

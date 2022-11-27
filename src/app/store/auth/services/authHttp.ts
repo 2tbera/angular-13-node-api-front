@@ -2,25 +2,19 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { CookieService } from "ngx-cookie-service";
 import { Me } from "../../../core/models/me.model";
+import { HttpClient } from "@angular/common/http";
 
 @Injectable()
 export class AuthHttpService {
 
-  constructor(private cookieService: CookieService) { }
-
-  // Sorry logic is super primitive
+  constructor(private cookieService: CookieService, private http: HttpClient) { }
 
   public getAuthorised(me: Me): Observable<any> {
-    const users = JSON.parse(this.cookieService.get('users') || '[]');
-    const selectedUser = users.find((item: Me) => item.emailAddress == me.emailAddress)
-    return of( {id: selectedUser ? selectedUser?.id : false  } )
+    return  this.http.post('http://localhost:8081/auth/login', me)
   }
 
-  public getRegistered(me: Me): Observable<{ id: number }> {
-    const users = JSON.parse(this.cookieService.get('users') || '[]') ;
-    users.push({id: users.length , ...me})
-    this.cookieService.set('users', JSON.stringify(users));
-    return of({id : users.length} )
+  public getRegistered(me: Me): Observable<any> {
+    return  this.http.post('http://localhost:8081/auth/registration', me)
   }
 
 }

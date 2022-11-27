@@ -11,9 +11,9 @@ import { Store } from "@ngrx/store";
 export class RegistrationFormComponent {
 
   public form: FormGroup = this.fb.group({
-    firstName: [, Validators.required],
-    lastName: [, Validators.required],
-    emailAddress: [, [Validators.email ,Validators.required]],
+    firstname: [, Validators.required],
+    lastname: [, Validators.required],
+    email: [, [Validators.email ,Validators.required]],
     password: [, Validators.required],
   });
 

@@ -8,17 +8,17 @@
                     <form [formGroup]="form" (ngSubmit)="onSubmit()" class="d-flex justify-content-between align-items-center flex-column">
                         <mat-form-field class="w-100 mx-4 mt-3" appearance="outline">
                             <mat-label class=" font-opensans-regular">firstName</mat-label>
-                            <input [formControlName]="'firstName'" matInput placeholder="Search...">
+                            <input [formControlName]="'firstname'" matInput placeholder="Search...">
                         </mat-form-field>
 
                         <mat-form-field class="w-100 mx-4 mt-3" appearance="outline">
                             <mat-label class=" font-opensans-regular">lastName</mat-label>
-                            <input [formControlName]="'lastName'" matInput placeholder="Search...">
+                            <input [formControlName]="'lastname'" matInput placeholder="Search...">
                         </mat-form-field>
 
                         <mat-form-field class="w-100 mx-4 mt-3" appearance="outline">
                             <mat-label class=" font-opensans-regular">email</mat-label>
-                            <input [formControlName]="'emailAddress'" matInput placeholder="Search...">
+                            <input [formControlName]="'email'" matInput placeholder="Search...">
                         </mat-form-field>
 
                         <mat-form-field class="w-100" appearance="outline">
@@ -31,8 +31,6 @@
                         </mat-form-field>
                         <button [disabled]="form.invalid" class="btn btn-primary font-size-14 p-2"> Add New User</button>
                     </form>
-
-                    {{form.value | json}}
                 </div>
             </div>
         </div>

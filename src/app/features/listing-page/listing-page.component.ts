@@ -6,6 +6,7 @@ import { DomSanitizer, SafeResourceUrl } from "@angular/platform-browser";
 import { select, Store } from "@ngrx/store";
 import { addFile } from "../../store/list/actions/list.action";
 import { selectList } from "../../store/list/reducers/list.reducer";
+import { getMyData } from 'src/app/store/my-info/actions/my-info.action';
 
 @Component({
   templateUrl: './listing-page.component.html',
@@ -43,8 +44,16 @@ export class ListingPageComponent implements OnInit {
     return this.sanitizer.bypassSecurityTrustResourceUrl(fileUrl);
   }
 
+  public testToken() {
+    this.store.dispatch(getMyData())
+  }
+
+
   public onLogout(): void {
-    this.cookieService.delete('authStatus')
+
+    this.cookieService.delete('accessToken')
+    this.cookieService.delete('refreshToken')
+
     this.router.navigate(['auth'])
   }
 

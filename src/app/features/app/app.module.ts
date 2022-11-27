@@ -14,6 +14,8 @@ import { AuthEffect } from "../../store/auth/effects/auth.effect";
 import { AuthHttpService } from "../../store/auth/services/authHttp";
 import { MyInfoHttpService } from "../../store/my-info/services/my-infoHttp";
 import { MyDataEffect } from "../../store/my-info/effects/my-info.effect";
+import { HttpClient, HttpClientModule } from "@angular/common/http";
+import { authInterceptorProvider } from "../../core/interceptors/auth/auth-interceptor.provider";
 
 const IMPORTS = [
     BrowserModule,
@@ -22,6 +24,7 @@ const IMPORTS = [
     StoreModule.forRoot(REDUCERS),
     EffectsModule.forRoot([AuthEffect, MyDataEffect]),
     StoreDevtoolsModule.instrument({}),
+    HttpClientModule,
 ];
 
 const DECLARATIONS = [
@@ -31,7 +34,9 @@ const DECLARATIONS = [
 const SERVICES: any[] = [
     AuthGuard,
     MyInfoHttpService,
-    AuthHttpService
+    AuthHttpService,
+    authInterceptorProvider
+
 ];
 
 @NgModule({

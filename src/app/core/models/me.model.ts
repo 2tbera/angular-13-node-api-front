@@ -1,7 +1,8 @@
 export interface Me {
   id?: number;
-  firstName?: string;
-  lastName?: string;
-  emailAddress?: string;
+  firstname?: string;
+  lastname?: string;
+  email?: string;
   password?: string;
+  age?: number;
 }
