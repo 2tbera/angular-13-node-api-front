@@ -50,7 +50,7 @@ export class AuthInterceptor implements HttpInterceptor {
     if (!this.isRefreshing) {
       this.isRefreshing = true;
       this.refreshTokenSubject.next(null);
-      return this.http.get<any>(`http://localhost:8081/auth/refresh-token`, {
+      return this.http.get<any>(`http://localhost:3000/auth/refresh-token`, {
         headers:
           {refreshToken: this.cookieService.get("refreshToken")}
       }).pipe(

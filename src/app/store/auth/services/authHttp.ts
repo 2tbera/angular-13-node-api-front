@@ -10,11 +10,11 @@ export class AuthHttpService {
   constructor(private cookieService: CookieService, private http: HttpClient) { }
 
   public getAuthorised(me: Me): Observable<any> {
-    return  this.http.post('http://localhost:8081/auth/login', me)
+    return  this.http.post('http://localhost:3000/auth/login', me)
   }
 
   public getRegistered(me: Me): Observable<any> {
-    return  this.http.post('http://localhost:8081/auth/registration', me)
+    return  this.http.post('http://localhost:3000/auth/registration', me)
   }
 
 }

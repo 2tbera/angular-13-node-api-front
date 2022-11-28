@@ -11,7 +11,7 @@ export class MyInfoHttpService {
   constructor(private cookieService: CookieService, private http: HttpClient, private router: Router) { }
 
   public getMyData(): Observable<Me> {
-    return this.http.get('http://localhost:8081/user/user-data')
+    return this.http.get('http://localhost:3000/user/user-data')
   }
 
 }
