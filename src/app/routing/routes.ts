@@ -9,7 +9,7 @@ export const routes: Routes = [
   {
     path: '',
     canActivate: [AuthGuard],
-    loadChildren: () => import('../features/listing-page/listing-page.module').then(m => m.ListingPageModule)
+    loadChildren: () => import('../features/dash-page/dash-page.module').then(m => m.DashPageModule)
   },
   // {
   //   path: '**',

@@ -3,8 +3,8 @@ import { CommonModule } from "@angular/common";
 import { MatIconModule } from "@angular/material/icon";
 import { MatInputModule } from "@angular/material/input";
 
-import { DialogAddAlbumDialog, ListingPageComponent } from './listing-page.component';
-import { CalendarRoutingModule } from "./listing-page-routing.module";
+import { DialogAddAlbumDialog, DashPageComponent } from './dash-page.component';
+import { DashRouteModule } from "./dash-page-routing.module";
 import { CardModule } from "../../modules/card/card.module";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatDialogModule } from "@angular/material/dialog";
@@ -13,7 +13,7 @@ import { MatButtonModule } from "@angular/material/button";
 const IMPORTS = [
   CommonModule,
   CardModule,
-  CalendarRoutingModule,
+  DashRouteModule,
   MatInputModule,
   MatIconModule,
   MatDialogModule,
@@ -25,7 +25,7 @@ const IMPORTS = [
 ];
 
 const DECLARATIONS = [
-  ListingPageComponent,
+  DashPageComponent,
   DialogAddAlbumDialog,
 ];
 
@@ -36,5 +36,5 @@ const SERVICES: any[] = [];
   imports:IMPORTS,
   providers: SERVICES
 })
-export class ListingPageModule {
+export class DashPageModule {
 }
