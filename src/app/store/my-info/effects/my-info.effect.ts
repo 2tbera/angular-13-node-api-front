@@ -5,7 +5,7 @@ import { switchMap, map, tap } from 'rxjs/operators';
 import { Me } from 'src/app/core/models/me.model';
 import { getMyData, getMyDataSuccess } from '../actions/my-info.action';
 import { MyInfoHttpService } from '../services/my-infoHttp';
-import { getAlbum } from "../../album/actions/album.action";
+import { getAlbum, getMeAlbum } from "../../album/actions/album.action";
 
 @Injectable()
 export class MyDataEffect {
@@ -15,7 +15,7 @@ export class MyDataEffect {
       ofType(getMyData),
       switchMap(() => this.myInfoHttpService.getMyData()),
       map((content: Me) => getMyDataSuccess({me: content})),
-      tap(({me}) => me.id && this.store.dispatch(getAlbum({id: me.id})))
+      tap(({me}) => me.id && this.store.dispatch(getMeAlbum({id: me.id})))
   ));
 
   constructor(private actions$: Actions,private store: Store,  private myInfoHttpService: MyInfoHttpService) {

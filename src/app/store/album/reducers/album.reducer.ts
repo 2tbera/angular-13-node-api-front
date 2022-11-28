@@ -1,30 +1,18 @@
 import { Action, createFeatureSelector, createReducer, createSelector, on } from '@ngrx/store';
-import { createAlbumSuccess, getAlbumSuccess } from "../actions/album.action";
-import { createEntityAdapter, EntityAdapter, EntityState } from "@ngrx/entity";
+import { createAlbumSuccess, getMeAlbumSuccess } from "../actions/album.action";
 import { album } from "../../../core/models/album.model";
 
-export interface State extends EntityState<any> {
-}
-
-export const adapter: EntityAdapter<album[]> = createEntityAdapter();
-
-export const initialState: State = adapter.getInitialState({});
+const initialState: {meAlbums: album[] } = {meAlbums: []};
 
 const albumReducer = createReducer(initialState,
-  on(createAlbumSuccess,
-    (state, action: any) => {
-      return adapter.addOne(action.album, state);
-    }),
-  on(getAlbumSuccess,
-    (state, action: any) => {
-      return adapter.addMany(action.albums, state);
-    }),
-
+  on(createAlbumSuccess, (state, action) => ({ ...state, meAlbums: [...state.meAlbums, action.album]})),
+  on(getMeAlbumSuccess, (state, action) => ({ ...state, ...{meAlbums: action.albums}}))
 );
 
-export function reducerAlbum(state: State | undefined, action: Action) {
+export function reducerAlbum(state: any, action: Action) {
   return albumReducer(state, action);
 }
+
 
 const reducerResponsibleState = createFeatureSelector<any>('album');
 
@@ -33,5 +21,5 @@ export const selectAlbums = () =>
     if (!state) {
       return;
     }
-    return state.ids.map((id: string)=> ({...state.entities[id]}));
+    return state.meAlbums;
   });

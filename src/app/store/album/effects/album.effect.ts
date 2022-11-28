@@ -6,7 +6,8 @@ import {
   createAlbum,
   createAlbumSuccess,
   getAlbum,
-  getAlbumSuccess,
+  getMeAlbum,
+  getMeAlbumSuccess,
   removeAlbum,
   removeAlbumSuccess
 } from '../actions/album.action';
@@ -27,15 +28,15 @@ export class AlbumEffect {
     this.actions$.pipe(
       ofType(removeAlbum),
       switchMap((id: {id: string}) => this.albumHttpService.removeAlbum(id)),
-      tap((me) => me.id && this.store.dispatch(getAlbum({id: me.id}))),
+      tap((me) => me.id && this.store.dispatch(getMeAlbum({id: me.id}))),
       map(() => removeAlbumSuccess()),
     ));
 
-  private getAlbum$ = createEffect(() =>
+  private getMeAlbum$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(getAlbum),
-      switchMap((data) => this.albumHttpService.getAlbum(data.id)),
-      map((list: album[]) => getAlbumSuccess({albums: list})),
+      ofType(getMeAlbum),
+      switchMap((data) => this.albumHttpService.getMeAlbum(data.id)),
+      map((list: album[]) => getMeAlbumSuccess({albums: list})),
     ));
 
 

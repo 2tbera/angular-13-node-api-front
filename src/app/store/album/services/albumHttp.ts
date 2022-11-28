@@ -16,6 +16,10 @@ export class AlbumHttpService {
     return this.http.delete('http://localhost:3000/album/remove', {body: id}) as Observable<album>
   }
 
+  public getMeAlbum(id: string): Observable<album[]> {
+    return this.http.post('http://localhost:3000/album/getUserAlbums', {id}) as Observable<album[]>
+  }
+
   public getAlbum(id: string): Observable<album[]> {
     return this.http.post('http://localhost:3000/album/getUserAlbums', {id}) as Observable<album[]>
   }

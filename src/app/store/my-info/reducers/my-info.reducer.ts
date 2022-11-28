@@ -22,7 +22,6 @@ const meState = createFeatureSelector<Me>('me');
 export const selectMeInfo = () => createSelector(
 	meState,
 	(state) => {
-		console.log(state, 111)
 		return state;
 	}
 );
