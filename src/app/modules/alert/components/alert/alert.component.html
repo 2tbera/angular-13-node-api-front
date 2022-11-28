@@ -1,0 +1,8 @@
+  <div class="toast toast-{{type}} d-inline-block shadow-lg m-1 bg-white border-radius-16 font-color-dark-blue font-circularstd-regular p-2" style="max-width: 560px;"
+       [class.show]="show"
+       (mouseover)="stopHideTimeout()"
+       (mouseleave)="startHideTimeout()">
+
+    <img *ngIf="type == 'success'" class="mr-2" src="https://notifia.nyc3.cdn.digitaloceanspaces.com/assets_v2/images/toast-success.svg" alt="">
+    <span class="font-size-14" [innerHTML]="message"></span>
+  </div>

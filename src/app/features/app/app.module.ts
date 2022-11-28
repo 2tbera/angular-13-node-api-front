@@ -18,6 +18,7 @@ import { HttpClient, HttpClientModule } from "@angular/common/http";
 import { authInterceptorProvider } from "../../core/interceptors/auth/auth-interceptor.provider";
 import { AlbumEffect } from "../../store/album/effects/album.effect";
 import { AlbumHttpService } from "../../store/album/services/albumHttp";
+import { AlertModule } from "../../modules/alert";
 
 const IMPORTS = [
     BrowserModule,
@@ -27,6 +28,7 @@ const IMPORTS = [
     EffectsModule.forRoot([AuthEffect, MyDataEffect, AlbumEffect]),
     StoreDevtoolsModule.instrument({}),
     HttpClientModule,
+    AlertModule
 ];
 
 const DECLARATIONS = [

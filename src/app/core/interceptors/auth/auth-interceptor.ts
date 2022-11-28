@@ -1,23 +1,18 @@
 import { Injectable } from '@angular/core';
-import {
-  HttpInterceptor,
-  HttpHandler,
-  HttpRequest,
-  HttpErrorResponse,
-  HttpClient,
-  HttpEvent
-} from '@angular/common/http';
-
-import { BehaviorSubject, Observable, throwError } from 'rxjs';
+import { HttpClient, HttpErrorResponse, HttpHandler, HttpInterceptor, HttpRequest, } from '@angular/common/http';
+import { BehaviorSubject, throwError } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
 import { catchError, filter, switchMap, take, tap } from 'rxjs/operators';
 
 import { Router } from '@angular/router';
+import { Store } from "@ngrx/store";
+import { alertDanger, AlertTypes } from "../../../modules/alert";
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
   constructor(
     private cookieService: CookieService,
+    private store: Store,
     private router: Router,
     private http: HttpClient
   ) {
@@ -33,12 +28,11 @@ export class AuthInterceptor implements HttpInterceptor {
         Authorization: `${this.cookieService.get("accessToken")}`,
       },
     });
-    // @ts-ignore
-    return next.handle(tokenizeReq).pipe(catchError((error: Observable<HttpEvent<any>> | undefined) => {
+    return next.handle(tokenizeReq).pipe(catchError((error: any ): any => {
       if (error instanceof HttpErrorResponse && error.status === 401) {
         return this.handle401Error(req, next);
-      } else if (error instanceof HttpErrorResponse && error.status === 403) {
-        this.router.navigate(['/exception', 'access-denied']);
+      } else if (error instanceof HttpErrorResponse) {
+        this.store.dispatch(alertDanger({alertType: AlertTypes.Warning , delay: 7000, message: error?.error?.message}));
       } else {
         return throwError(error)
       }

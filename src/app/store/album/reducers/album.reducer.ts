@@ -13,7 +13,6 @@ export function reducerAlbum(state: any, action: Action) {
   return albumReducer(state, action);
 }
 
-
 const reducerResponsibleState = createFeatureSelector<any>('album');
 
 export const selectAlbums = () =>
