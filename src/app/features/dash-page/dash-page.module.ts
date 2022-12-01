@@ -9,6 +9,7 @@ import { CardModule } from "../../modules/card/card.module";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatDialogModule } from "@angular/material/dialog";
 import { MatButtonModule } from "@angular/material/button";
+import { AlbumHolderComponent, DialogAddMusicDialog } from "./layout/album-holder/album-holder.component";
 
 const IMPORTS = [
   CommonModule,
@@ -20,13 +21,14 @@ const IMPORTS = [
   MatButtonModule,
 
   ReactiveFormsModule,
-  FormsModule,
-
+  FormsModule
 ];
 
 const DECLARATIONS = [
   DashPageComponent,
   DialogAddAlbumDialog,
+  AlbumHolderComponent,
+  DialogAddMusicDialog
 ];
 
 const SERVICES: any[] = [];

@@ -1,6 +1,7 @@
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 import { DashPageComponent } from "./dash-page.component";
+import { AlbumHolderComponent } from "./layout/album-holder/album-holder.component";
 
 
 const DashRoute: Routes = [
@@ -10,7 +11,7 @@ const DashRoute: Routes = [
     children: [
       {
         path: ':id',
-        component: DashPageComponent,
+        component: AlbumHolderComponent,
       }
     ]
   }
