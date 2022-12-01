@@ -73,8 +73,9 @@ export class DialogAddMusicDialog {
     this.http.post(`http://localhost:3000/file/upload`, formData, {
         headers,
       }).subscribe((res) => {
-        const x = res as {id: string}
-        this.form.get('file')?.setValue(x.id)
+        const x = res as { filename: string}
+
+        this.form.get('file')?.setValue(x.filename)
     });
   }
 
