@@ -20,6 +20,10 @@ export class AlbumHttpService {
     return this.http.post('http://localhost:3000/album/getUserAlbums', {id}) as Observable<album[]>
   }
 
+  public getAlbumMusic(id: string): Observable<album[]> {
+    return this.http.get(`http://localhost:3000/album/getById/${id}`) as Observable<album[]>
+  }
+  
   public getAlbum(id: string): Observable<album[]> {
     return this.http.post('http://localhost:3000/album/getUserAlbums', {id}) as Observable<album[]>
   }

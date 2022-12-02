@@ -5,7 +5,7 @@ import { switchMap, map, tap } from 'rxjs/operators';
 import {
   createAlbum,
   createAlbumSuccess,
-  getAlbum,
+  getAlbumMusic, getAlbumMusicSuccess,
   getMeAlbum,
   getMeAlbumSuccess,
   removeAlbum,
@@ -39,6 +39,12 @@ export class AlbumEffect {
       map((list: album[]) => getMeAlbumSuccess({albums: list})),
     ));
 
+  private getAlbumMusic$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(getAlbumMusic),
+      switchMap((data) => this.albumHttpService.getAlbumMusic(data.id)),
+      map((list: any[]) => getAlbumMusicSuccess({list: list})),
+    ));
 
   constructor(private actions$: Actions, private store: Store, private albumHttpService: AlbumHttpService) {
   }

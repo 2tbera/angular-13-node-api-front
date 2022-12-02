@@ -3,8 +3,8 @@
         <button class="list-group-item list-group-item-action active" (click)="openAddAlbumPopup()">
             Add music
         </button>
-        <ng-container *ngIf="music">
-            <app-card *ngFor="let item of music" [data]="item"
+        <ng-container *ngIf="(albumsMusic$ | async) as list">
+            <app-card *ngFor="let item of list" [data]="item"
                       class="col-xl-4 col-lg-6 col-12 mb-3"></app-card>
         </ng-container>
     </div>
