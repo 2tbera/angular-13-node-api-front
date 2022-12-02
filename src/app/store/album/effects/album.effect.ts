@@ -13,6 +13,7 @@ import {
 } from '../actions/album.action';
 import { AlbumHttpService } from "../services/albumHttp";
 import { album } from "../../../core/models/album.model";
+import { alertSuccess, AlertTypes } from "../../../modules/alert";
 
 @Injectable()
 export class AlbumEffect {
@@ -21,6 +22,7 @@ export class AlbumEffect {
     this.actions$.pipe(
       ofType(createAlbum),
       switchMap((data: { name: string }) => this.albumHttpService.createAlbum(data)),
+      tap((me) =>  this.store.dispatch(alertSuccess({alertType: AlertTypes.Success , delay: 7000, message: 'Album is added'}))),
       map((data: album) => createAlbumSuccess({album: data})),
     ));
 

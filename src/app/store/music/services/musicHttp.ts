@@ -1,27 +1,28 @@
 import { Injectable } from '@angular/core';
 import { Observable} from 'rxjs';
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { album } from "../../../core/models/album.model";
+import { music } from "../../../core/models/music.model";
 
 @Injectable()
-export class AlbumHttpService {
+export class MusicHttpService {
 
   constructor(private http: HttpClient) { }
 
-  public createAlbum(data: {name: string}): Observable<album> {
-    return this.http.post('http://localhost:3000/album/create', data) as Observable<album>
+  public createMusic(data: {id: string, result: { name: string, category: string, file: string }}): Observable<music> {
+    return this.http.post(`http://localhost:3000/album/addMusic/${data.id}`, data.result) as Observable<music>
   }
 
-  public removeAlbum(id: {id: string}): Observable<album> {
-    return this.http.delete('http://localhost:3000/album/remove', {body: id}) as Observable<album>
-  }
+  public uploadMusic(data: {file: any}): Observable<music> {
 
-  public getMeAlbum(id: string): Observable<album[]> {
-    return this.http.post('http://localhost:3000/album/getUserAlbums', {id}) as Observable<album[]>
-  }
+    const formData: any = new FormData();
+    formData.append('file', data.file);
+    const headers = new HttpHeaders({ 'enctype': 'multipart/form-data' });
 
-  public getAlbum(id: string): Observable<album[]> {
-    return this.http.post('http://localhost:3000/album/getUserAlbums', {id}) as Observable<album[]>
+
+    return this.http.post(`http://localhost:3000/file/upload`, formData, {
+      headers,
+    }) as Observable<music>
   }
 
 }

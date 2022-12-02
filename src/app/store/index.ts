@@ -4,7 +4,7 @@ import { reducerAlbum } from "./album/reducers/album.reducer";
 
 export const REDUCERS: ActionReducerMap<any> = {
     me: reducerMe,
-    album: reducerAlbum
+    album: reducerAlbum,
 };
 
 export interface State {

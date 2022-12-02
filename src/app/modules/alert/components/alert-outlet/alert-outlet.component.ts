@@ -51,6 +51,7 @@ export class AlertOutletComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     this.ntAlertStateLast$.subscribe(res => {
+      console.log(res, 1111)
       if (!res) {
         return;
       }

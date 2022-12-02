@@ -3,43 +3,35 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { switchMap, map, tap } from 'rxjs/operators';
 import {
-  createAlbum,
-  createAlbumSuccess,
-  getAlbum,
-  getMeAlbum,
-  getMeAlbumSuccess,
-  removeAlbum,
-  removeAlbumSuccess
-} from '../actions/album.action';
-import { AlbumHttpService } from "../services/albumHttp";
+  createMusicSuccess,
+  uploadMusic, uploadMusicSuccess
+} from '../actions/music.action';
 import { album } from "../../../core/models/album.model";
+import { createMusic } from "../actions/music.action";
+import { MusicHttpService } from '../services/musicHttp';
+import { createAlbumSuccess } from "../../album/actions/album.action";
+import { alertSuccess, AlertTypes } from "../../../modules/alert";
+import { music } from "../../../core/models/music.model";
 
 @Injectable()
 export class MusicEffect {
 
-  private createAlbum$ = createEffect(() =>
+  private createMusic$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(createAlbum),
-      switchMap((data: { name: string }) => this.albumHttpService.createAlbum(data)),
-      map((data: album) => createAlbumSuccess({album: data})),
+      ofType(createMusic),
+      switchMap((data: { id: string, result: { name: string, category: string, file: string } }) => this.musicHttpService.createMusic(data)),
+      tap((me) =>  this.store.dispatch(alertSuccess({alertType: AlertTypes.Success , delay: 7000, message: 'Music is added'}))),
+      map((data) => createMusicSuccess()),
     ));
 
-  private removeAlbum$ = createEffect(() =>
+  private uploadMusic$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(removeAlbum),
-      switchMap((id: {id: string}) => this.albumHttpService.removeAlbum(id)),
-      tap((me) => me.id && this.store.dispatch(getMeAlbum({id: me.id}))),
-      map(() => removeAlbumSuccess()),
+      ofType(uploadMusic),
+      switchMap((file: {file: any}) => this.musicHttpService.uploadMusic(file)),
+      map((data: music) => uploadMusicSuccess({music: data})),
+      tap((me) =>  this.store.dispatch(alertSuccess({alertType: AlertTypes.Success , delay: 7000, message: 'Music is added'}))),
     ));
 
-  private getMeAlbum$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(getMeAlbum),
-      switchMap((data) => this.albumHttpService.getMeAlbum(data.id)),
-      map((list: album[]) => getMeAlbumSuccess({albums: list})),
-    ));
-
-
-  constructor(private actions$: Actions, private store: Store, private albumHttpService: AlbumHttpService) {
+  constructor(private actions$: Actions, private store: Store, private musicHttpService: MusicHttpService) {
   }
 }

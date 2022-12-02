@@ -27,7 +27,7 @@ export const selectAlbums = () =>
 
 export const selectAlbumsMusic = () =>
   createSelector(reducerResponsibleState, (state) => {
-    if (!state) {
+    if (!state || !state.albumMusic.length) {
       return;
     }
     return state.albumMusic;

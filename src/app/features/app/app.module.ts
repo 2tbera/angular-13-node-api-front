@@ -14,18 +14,20 @@ import { AuthEffect } from "../../store/auth/effects/auth.effect";
 import { AuthHttpService } from "../../store/auth/services/authHttp";
 import { MyInfoHttpService } from "../../store/my-info/services/my-infoHttp";
 import { MyDataEffect } from "../../store/my-info/effects/my-info.effect";
-import { HttpClient, HttpClientModule } from "@angular/common/http";
+import { HttpClientModule } from "@angular/common/http";
 import { authInterceptorProvider } from "../../core/interceptors/auth/auth-interceptor.provider";
 import { AlbumEffect } from "../../store/album/effects/album.effect";
 import { AlbumHttpService } from "../../store/album/services/albumHttp";
 import { AlertModule } from "../../modules/alert";
+import { MusicEffect } from "../../store/music/effects/music.effect";
+import { MusicHttpService } from "../../store/music/services/musicHttp";
 
 const IMPORTS = [
     BrowserModule,
     BrowserAnimationsModule,
     RoutingModule,
     StoreModule.forRoot(REDUCERS),
-    EffectsModule.forRoot([AuthEffect, MyDataEffect, AlbumEffect]),
+    EffectsModule.forRoot([AuthEffect, MyDataEffect, AlbumEffect, MusicEffect]),
     StoreDevtoolsModule.instrument({}),
     HttpClientModule,
     AlertModule
@@ -40,8 +42,8 @@ const SERVICES: any[] = [
     MyInfoHttpService,
     AuthHttpService,
     AlbumHttpService,
-    authInterceptorProvider
-
+    authInterceptorProvider,
+    MusicHttpService
 ];
 
 @NgModule({

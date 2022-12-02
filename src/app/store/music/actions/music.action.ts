@@ -4,20 +4,16 @@ import { music } from "../../../core/models/music.model";
 export enum MusicActionsTypes {
   createMusic = '[MUSIC] create Music',
   createMusicSuccess = '[MUSIC] create Music Success',
+  uploadMusic = '[MUSIC] upload Music',
+  uploadMusicSuccess = '[MUSIC] upload Music Success',
   removeMusic = '[MUSIC] remove Music',
   removeMusicSuccess = '[MUSIC] remove Music Success',
-  getMeMusic = '[MUSIC] get me Music',
-  getMeMusicSuccess = '[MUSIC] get me Music Success',
-  getMusic = '[MUSIC] get Music',
-  getMusicSuccess = '[MUSIC] get Music Success',
+
 
 }
 
-export const createAlbum = createAction(MusicActionsTypes.createMusic, props<{name: string}>());
-export const createAlbumSuccess = createAction(MusicActionsTypes.createMusicSuccess, props<{music: music}>());
+export const createMusic = createAction(MusicActionsTypes.createMusic, props<{id: string, result: { name: string, category: string, file: string }}>());
+export const createMusicSuccess = createAction(MusicActionsTypes.createMusicSuccess, props);
 
-export const removeAlbum = createAction(MusicActionsTypes.removeMusic, props<{id: string}>());
-export const removeAlbumSuccess = createAction(MusicActionsTypes.removeMusicSuccess, props);
-
-export const getMeAlbum = createAction(MusicActionsTypes.getMeMusic, props<{id: string}>());
-export const getMeAlbumSuccess = createAction(MusicActionsTypes.getMeMusicSuccess, props<{ album: music[] }>());
+export const uploadMusic = createAction(MusicActionsTypes.uploadMusic, props<{file: any}>());
+export const uploadMusicSuccess = createAction(MusicActionsTypes.uploadMusicSuccess, props<{music: music}>());

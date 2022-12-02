@@ -36,14 +36,10 @@ export class DashPageComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if(!result.name) {return}
+      if(!result) {return}
       this.store.dispatch(createAlbum(result))
     });
   }
-
-  // public onRemoveAlbum(id: string): void {
-  //   this.store.dispatch(removeAlbum({id}))
-  // }
 
   public onLogout(): void {
     this.cookieService.delete('accessToken')
