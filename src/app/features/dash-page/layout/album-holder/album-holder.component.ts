@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from "@angular/material/dialog";
 import { ActivatedRoute } from "@angular/router";
 import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
@@ -17,22 +17,35 @@ import { FormBuilder, Validators } from "@angular/forms";
 })
 export class AlbumHolderComponent implements OnInit {
 
+  public music: Array<any> = [];
 
-
-  constructor( private route: ActivatedRoute,private dialog: MatDialog) {
+  constructor(private http: HttpClient,private route: ActivatedRoute,private dialog: MatDialog, private cdr: ChangeDetectorRef) {
   }
 
   ngOnInit(): void {
+
+    this.http.get(`http://localhost:3000/album/getById/${this.route.snapshot.params['id']}`).subscribe((res) => {
+      console.log(res, 122)
+      this.music = res as Array<any>;
+      // this.form.get('file')?.setValue((res as { filename: string}).filename);
+      this.cdr.detectChanges();
+    });
   }
 
   public openAddAlbumPopup(): void {
     const dialogRef = this.dialog.open(DialogAddMusicDialog, {
-      width: '250px',
+      width: '450px',
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if(!result.name) {return}
+      console.log(this.route.snapshot ,1111)
       // this.store.dispatch(createAlbum(result))
+      this.http.post(`http://localhost:3000/album/addMusic/${this.route.snapshot.params['id']}`, result).subscribe((res) => {
+        console.log(res, 122)
+        // this.form.get('file')?.setValue((res as { filename: string}).filename);
+        // this.cdr.detectChanges();
+      });
     });
   }
 
@@ -55,6 +68,7 @@ export class DialogAddMusicDialog {
     private fb: FormBuilder,
     public dialogRef: MatDialogRef<DialogAddMusicDialog>,
     private http: HttpClient,
+    private cdr: ChangeDetectorRef,
     @Inject(MAT_DIALOG_DATA) public data: void,
   ) {}
 
@@ -62,20 +76,15 @@ export class DialogAddMusicDialog {
     this.dialogRef.close();
   }
 
-
-  public test(value: any): void {
-
+  public upload(value: any): void {
     const formData: any = new FormData();
     formData.append('file', value.target.files[0] );
-
     const headers = new HttpHeaders({ 'enctype': 'multipart/form-data' });
-
     this.http.post(`http://localhost:3000/file/upload`, formData, {
         headers,
       }).subscribe((res) => {
-        const x = res as { filename: string}
-
-        this.form.get('file')?.setValue(x.filename)
+        this.form.get('file')?.setValue((res as { filename: string}).filename);
+        this.cdr.detectChanges();
     });
   }
 

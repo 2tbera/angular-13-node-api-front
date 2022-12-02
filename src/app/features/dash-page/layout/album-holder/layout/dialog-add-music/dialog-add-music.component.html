@@ -1,4 +1,4 @@
-<h1 mat-dialog-title>Add album</h1>
+<h1 mat-dialog-title>Add Music</h1>
 <div mat-dialog-content>
     <form [formGroup]="form" class="example-container">
         <mat-form-field appearance="fill">
@@ -11,12 +11,14 @@
             <input matInput placeholder="category" [formControlName]="'category'" required>
             <mat-error *ngIf="form.invalid">{{"category is required"}}</mat-error>
         </mat-form-field>
-        <input (change)="test($event)" #uploadform name="foo" type="file" />
+        <input (change)="upload($event)" #uploadform name="foo" accept="audio/*" type="file" />
     </form>
-    {{form.value | json }}
-    <img *ngIf="form.get('file')?.value" [src]="'http://localhost:3000/file/files/' + form.get('file')?.value" alt="">
+
+    <audio *ngIf="form.get('file')?.value" controls>
+        <source  [src]="'http://localhost:3000/file/files/' + form.get('file')?.value" type="audio/ogg">
+    </audio>
 </div>
 <div >
-    <button mat-button (click)="onNoClick()"  color="warn">Close</button>
-    <button mat-button color="primary" [mat-dialog-close]="form.value">Add</button>
+    <button mat-button (click)="onNoClick()" color="warn">Close</button>
+    <button mat-button color="primary" [disabled]="form.invalid" [mat-dialog-close]="form.value">Add</button>
 </div>

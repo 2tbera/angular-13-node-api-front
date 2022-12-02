@@ -1,12 +1,14 @@
 <div *ngIf="data" class="card p-2">
+
     <div class=" d-flex justify-content-between align-items-center border-bottom mb-3 py-2">
         <div class="w-75 d-flex align-items-center">
-
-
-            <div class="text-truncate font-opensans-bold font-size-18">{{data.title}}</div>
+            <div class="text-truncate font-opensans-bold font-size-18">{{data.name}}</div>
+            <div class="text-truncate font-opensans-bold font-size-18">{{data.category}}</div>
         </div>
 
+        <audio *ngIf="data.file" controls>
+            <source  [src]="'http://localhost:3000/file/files/' + data.file" type="audio/ogg">
+        </audio>
     </div>
-    <img  class="rounded-circle mr-1 w-100"  [src]="data.logo" alt="">
 
 </div>
