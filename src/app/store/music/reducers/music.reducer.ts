@@ -1,33 +1,26 @@
 import { Action, createFeatureSelector, createReducer, createSelector, on } from '@ngrx/store';
-import { album } from "../../../core/models/album.model";
+import { uploadMusicFile } from 'src/app/core/models/music.model';
+import { uploadMusicSuccess, clearUploadMusic } from '../actions/music.action';
 
-const initialState: {meAlbums: album[], albumMusic: any } = {meAlbums: [], albumMusic: {}};
+const initialState: {uploadedfile: uploadMusicFile } = {uploadedfile: {}};
 
-// const musicReducer = createReducer(initialState,
-//   on(createAlbumSuccess, (state, action) => ({ ...state, meAlbums: [...state.meAlbums, action.album]})),
-//   on(getMeAlbumSuccess, (state, action) => ({ ...state, ...{meAlbums: action.albums}})),
-//   on(getAlbumMusicSuccess, (state, action) => ({ ...state, ...{...state.albumMusic, albumMusic:  action.list }}))
-// );
+const musicReducer = createReducer(initialState,
+  on(uploadMusicSuccess, (state, action) => ({ ...state, uploadedfile: action.music})),
+  on(clearUploadMusic, (state, action) => ({ ...state, uploadedfile: {}})),
+);
 
-// export function reducerAlbum(state: any, action: Action) {
-  // return musicReducer(state, action);
-// }
+export function reducerMusic(state: any, action: Action) {
+  return musicReducer(state, action);
+}
 
-const reducerResponsibleState = createFeatureSelector<any>('album');
+const reducerResponsibleState = createFeatureSelector<any>('music');
 
-export const selectAlbums = () =>
+export const selectUploadedMusic = () =>
   createSelector(reducerResponsibleState, (state) => {
     if (!state) {
       return;
     }
-    return state.meAlbums;
+    return state.uploadedfile;
   });
 
 
-export const selectAlbumsMusic = () =>
-  createSelector(reducerResponsibleState, (state) => {
-    if (!state || !state.albumMusic.length) {
-      return;
-    }
-    return state.albumMusic;
-  });

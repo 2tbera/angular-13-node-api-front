@@ -5,3 +5,15 @@ export interface music {
   file: string;
   category: string;
 }
+
+export interface uploadMusicFile {
+    id?: string;
+    filename?: string
+}
+
+export interface createMusicConnection {
+  id: string;
+  album_id: string;
+  music_id: string;
+}
+

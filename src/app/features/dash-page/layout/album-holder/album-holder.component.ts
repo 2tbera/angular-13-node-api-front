@@ -1,13 +1,14 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from "@angular/material/dialog";
 import { ActivatedRoute, NavigationEnd, Router } from "@angular/router";
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 import { FormBuilder, Validators } from "@angular/forms";
 import { getAlbumMusic } from "../../../../store/album/actions/album.action";
 import { select, Store } from '@ngrx/store';
 import {  selectAlbumsMusic } from "../../../../store/album/reducers/album.reducer";
 import { filter } from "rxjs/operators";
-import { createMusic, uploadMusic } from "../../../../store/music/actions/music.action";
+import { clearUploadMusic, createMusic, uploadMusic } from "../../../../store/music/actions/music.action";
+import { selectUploadedMusic } from 'src/app/store/music/reducers/music.reducer';
 
 /**
  * @description converts base64 string into File class
@@ -40,6 +41,7 @@ export class AlbumHolderComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
+      this.store.dispatch(clearUploadMusic())
       if(!result) {return}
       this.store.dispatch(createMusic({id: this.route.snapshot.params['id'] , result: result}))
     });
@@ -52,7 +54,9 @@ export class AlbumHolderComponent implements OnInit {
   templateUrl: 'layout/dialog-add-music/dialog-add-music.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DialogAddMusicDialog {
+export class DialogAddMusicDialog implements OnInit {
+
+  public uploadedMusic$ = this.store.pipe(select(selectUploadedMusic()));
 
   public form = this.fb.group({
     name: [null, Validators.required],
@@ -63,25 +67,24 @@ export class DialogAddMusicDialog {
   constructor(
     private fb: FormBuilder,
     public dialogRef: MatDialogRef<DialogAddMusicDialog>,
-    private http: HttpClient,
     private cdr: ChangeDetectorRef,
     private store: Store,
     @Inject(MAT_DIALOG_DATA) public data: void,
   ) {}
+
+  ngOnInit(): void {
+    this.uploadedMusic$.subscribe(res => {
+      this.form.get('file')?.setValue(res.filename);
+      this.cdr.detectChanges();
+    })
+  }
 
   public onNoClick(): void {
     this.dialogRef.close();
   }
 
   public upload(value: any): void {
-
     this.store.dispatch(uploadMusic({file: value.target.files[0]}))
-
-    //   .subscribe((res) => {
-    //     this.form.get('file')?.setValue((res as { filename: string}).filename);
-    //     this.cdr.detectChanges();
-    // });
-
   }
 
 }
